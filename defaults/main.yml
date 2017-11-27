@@ -1,0 +1,12 @@
+---
+# Notifications by email, set it to true to activate or false to deactivate
+ssh_login_notifications_mail_enable: true
+
+# Set the e-mail notification receiver
+ssh_login_notifications_mail_receiver: "root"
+
+# Notifications by Slack, set it to true to activate or false to deactivate
+ssh_login_notifications_slack_enable: false
+
+# Set the Slack custom integration webhook URL
+ssh_login_notifications_slack_webhook: ""

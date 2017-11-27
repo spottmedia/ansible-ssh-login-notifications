@@ -1,0 +1,11 @@
+---
+- name: Create email notification script
+  template:
+    src: send_mail_on_ssh_login.sh.j2
+    dest: /usr/local/bin/send_mail_on_ssh_login.sh
+    mode: 0744
+
+- name: Enable email notifications script in SSHd PAM config file
+  lineinfile:
+    dest: /etc/pam.d/sshd
+    line: "session optional pam_exec.so /usr/local/bin/send_mail_on_ssh_login.sh"

@@ -1,0 +1,11 @@
+---
+- name: Disable email notifications script in SSHd PAM config file
+  lineinfile:
+    dest: /etc/pam.d/sshd
+    line: "session optional pam_exec.so /usr/local/bin/send_mail_on_ssh_login.sh"
+    state: absent
+
+- name: Delete Slack notifications script
+  file:
+    dest: /usr/local/bin/send_slack_on_ssh_login.sh
+    state: absent

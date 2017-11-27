@@ -1,0 +1,12 @@
+---
+- include: enable-mail-notifications.yml
+  when: ssh_login_notifications_mail_enable == true
+
+- include: enable-slack-notifications.yml
+  when: ssh_login_notifications_slack_enable == true
+
+- include: disable-mail-notifications.yml
+  when: ssh_login_notifications_mail_enable == false
+
+- include: disable-slack-notifications.yml
+  when: ssh_login_notifications_slack_enable == false
