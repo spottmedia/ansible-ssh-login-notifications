@@ -26,6 +26,12 @@ ssh_login_notifications_slack_enable: false
 
 # Set the Slack custom integration webhook URL
 ssh_login_notifications_slack_webhook: ""
+
+# Keep track of IPs that logged in and only report to slack if a new one logs in
+# NOTE: There isn't an email conterpart since normally you want your email log to be as detailed as possible
+# for better forensic analysis
+# Seen IPs' log is kept as a plaintext file under /var/log/ansible-ssh-login-notification.log
+ssh_login_notifications_slack_only_unique: true
 ```
 
 Notifications previously activated with this role can be deactivated by setting the variable to *false*. 

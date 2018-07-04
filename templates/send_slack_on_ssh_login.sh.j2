@@ -3,22 +3,35 @@ if [ "$PAM_TYPE" != "open_session" ]
 then
   exit 0
 else
-  URL={{ ssh_login_notifications_slack_webhook }}
-  TEXT=$(echo -e "$PAM_SERVICE login on `hostname -s` for account *$PAM_USER* ($PAM_TTY)\n" | python -c "import json,sys;print(json.dumps(sys.stdin.read()))")
-  PAYLOAD="{
-    \"attachments\": [
-      {
-        \"text\": $TEXT,
-        \"color\": \"danger\",
-        \"mrkdwn_in\": [\"text\"],
-        \"fields\": [
-          { \"title\": \"Date\", \"value\": \"`date`\", \"short\": true },
-          { \"title\": \"Host\", \"value\": \"$PAM_RHOST\", \"short\": true }
-        ]
-      }
-    ]
-  }"
+  {% if ssh_login_notifications_slack_only_unique is defined and ssh_login_notifications_slack_only_unique == true %}
+  LOG_FILE="/var/log/ansible-ssh-login-notification.log"
+  WORD=$PAM_RHOST
+  if [[ "$WORD" =~ $(echo ^\($(paste -sd'|' $LOG_FILE)\)$) ]]; then
+      echo "$WORD is already on the list, no need to notify anyone"
+  else
+  {% endif %}
+    URL={{ ssh_login_notifications_slack_webhook }}
+    TEXT=$(echo -e "$PAM_SERVICE login on `hostname -s` for account *$PAM_USER* ($PAM_TTY)\n" | python -c "import json,sys;print(json.dumps(sys.stdin.read()))")
+    PAYLOAD="{
+      \"attachments\": [
+        {
+          \"text\": $TEXT,
+          \"color\": \"danger\",
+          \"mrkdwn_in\": [\"text\"],
+          \"fields\": [
+            { \"title\": \"Date\", \"value\": \"`date`\", \"short\": true },
+            { \"title\": \"Host\", \"value\": \"$PAM_RHOST\", \"short\": true }
+          ]
+        }
+      ]
+    }"
 
-  curl -s -X POST --data-urlencode "payload=$PAYLOAD" $URL
+    curl -s -X POST --data-urlencode "payload=$PAYLOAD" $URL
+  {% if ssh_login_notifications_slack_only_unique is defined and ssh_login_notifications_slack_only_unique == true %}
+    echo "$WORD" >> $LOG_FILE
+  fi
+  {% endif %}
+
+
 fi
 exit 0
