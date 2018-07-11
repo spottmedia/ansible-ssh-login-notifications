@@ -45,13 +45,19 @@ None
 ```
 - hosts: server
   roles:
-    - { role: membrive.ssh-login-notifications }
+    - { role: grzegorznowak.ansible_role_ssh_login_notifications }
 ```
 
 ## License
 
 MIT / BSD
 
+## Sponsored by
+
+#### Kwiziq.com 
+#### Spottmedia.com
+
 ## Author Information
 
-This role was created in 2017 by [Fernando Membrive](https://membrive.net).
+This is a fork from a work of:
+[Fernando Membrive](https://membrive.net).
