@@ -1,6 +1,5 @@
 # Ansible Role: SSH Login Notifications
 
-[![Build Status](https://travis-ci.org/membrive/ansible-role-ssh-login-notifications.svg?branch=master)](https://travis-ci.org/membrive/ansible-role-ssh-login-notifications)
 
 Installs scripts to send a notification (by mail and/or Slack) when an user logs in using SSH.
 
