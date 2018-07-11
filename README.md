@@ -56,7 +56,11 @@ MIT / BSD
 #### [Kwiziq.com](https://www.kwiziq.com) - The AI language education platform
 #### [Spottmedia.com](http://www.spottmedia.com) - Technology design, delivery and consulting
 
+
 ## Author Information
 
-This is a fork from a work of:
+python, ansible & shell coding done by Grzegorz Nowak and Spottmedia.
+
+
+the initial code was a fork from a work of:
 [Fernando Membrive](https://membrive.net).
