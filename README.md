@@ -59,7 +59,7 @@ MIT / BSD
 
 ## Author Information
 
-python, ansible & shell coding done by [Grzegorz Nowak](https://www.linkedin.com/in/grzegorz-nowak-356b7360/) and Spottmedia.
+python, ansible, slack & shell coding by [Grzegorz Nowak](https://www.linkedin.com/in/grzegorz-nowak-356b7360/) and Spottmedia.
 
 
 the initial code was a fork from a work of:
