@@ -54,8 +54,8 @@ MIT / BSD
 
 ## Sponsored by
 
-#### Kwiziq.com 
-#### Spottmedia.com
+[Kwiziq.com](https://www.kwiziq.com)
+[Spottmedia Ltd.](https://www.spottmedia.com)
 
 ## Author Information
 
