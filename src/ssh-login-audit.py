@@ -1,8 +1,13 @@
-
+"""
+    Author        : Grzegorz Nowak
+    Date created  : 10/07/2018
+    Python Version: 3.5
+"""
 import time
 import socket
 import datetime
 import argparse
+
 from slackclient import SlackClient
 
 
@@ -26,10 +31,10 @@ LOGS_PER_CALL = 1000
 
 def lookupIp(anIp):
 	pages_query = sc.api_call(
-	  "team.accessLogs",
-	  count="1"
+		"team.accessLogs",
+		count="1"
 	)
-	pagesTotal = pages_query['paging']['total'] // LOGS_PER_CALL # we will be getting that many docs per call 
+	pagesTotal = pages_query['paging']['total'] // LOGS_PER_CALL # we will be getting that many docs per call
 	def filterALog(aLog):
 		return aLog['ip'] == anIp
 
@@ -37,10 +42,10 @@ def lookupIp(anIp):
 	username = None
 	for page in range(pagesTotal):
 		logs_call = sc.api_call(
-         		 "team.accessLogs",
-		          count=LOGS_PER_CALL,
-			  page=page
-	        )
+			"team.accessLogs",
+			count=LOGS_PER_CALL,
+			page=page
+		)
 		head = next(iter(filter(filterALog,logs_call['logins'])), None)
 		if head is not None:
 			break
@@ -56,41 +61,40 @@ def isUserFound(userData):
 
 
 def processFound(user):
-
 	sc.api_call(
-	  "chat.postMessage",
-	  channel=slack_channel,
-	  text="A known person just logged in to one of our servers: *{}*".format(socket.gethostname()), #Found this ip on slack {}, and it beongs to user {}".format(user['ip'], user['username']),
-	  as_user=False,
-	  attachments=[{
-	     'text': "Found this ip on slack *{}*, and it belongs to *{}*".format(user['ip'], user['username']),
-	     'color': 'good',
-             'mrkdwn_in': ['text'],
-             'fields': [
-        	{ 'title': 'Date'   , 'value': str(datetime.datetime.now()), 'short': True },
-	        { 'title': 'User IP', 'value': user['ip'], 'short': True },
-		{ 'title': 'Agent'  , 'value': user['extra']['user_agent'] }
-             ]
-          }]
-        )
+		"chat.postMessage",
+		channel=slack_channel,
+		text="A known person just logged in to one of our servers: *{}*".format(socket.gethostname()), #Found this ip on slack {}, and it beongs to user {}".format(user['ip'], user['username']),
+		as_user=False,
+		attachments=[{
+			'text': "Found this ip on slack *{}*, and it belongs to *{}*".format(user['ip'], user['username']),
+			'color': 'good',
+			'mrkdwn_in': ['text'],
+			'fields': [
+				{ 'title': 'Date'   , 'value': str(datetime.datetime.now()), 'short': True },
+				{ 'title': 'User IP', 'value': user['ip'], 'short': True },
+				{ 'title': 'Agent'  , 'value': user['extra']['user_agent'] }
+			]
+		}]
+	)
 
 
 def processUnknown(user):
-	 sc.api_call(
-          "chat.postMessage",
-          channel=slack_channel,
-          text="Warning! An unknown person just logged in to one of our servers: *{}*".format(socket.gethostname()), #Found this ip on slack {}, and it beongs to user {}".format(user['ip'], user['username']),
-          as_user=False,
-          attachments=[{
-             'text': "NOT found this ip on slack *{}*".format(user['ip']),
-             'color': 'danger',
-             'mrkdwn_in': ['text'],
-             'fields': [
-              { 'title': 'Date', 'value': str(datetime.datetime.now()), 'short': True },
-              { 'title': 'User IP', 'value': user['ip'], 'short': True }
-             ]
-          }]
-        )
+	sc.api_call(
+		"chat.postMessage",
+		channel=slack_channel,
+		text="Warning! An unknown person just logged in to one of our servers: *{}*".format(socket.gethostname()), #Found this ip on slack {}, and it beongs to user {}".format(user['ip'], user['username']),
+		as_user=False,
+		attachments=[{
+			'text': "NOT found this ip on slack *{}*".format(user['ip']),
+			'color': 'danger',
+			'mrkdwn_in': ['text'],
+			'fields': [
+				{ 'title': 'Date', 'value': str(datetime.datetime.now()), 'short': True },
+				{ 'title': 'User IP', 'value': user['ip'], 'short': True }
+			]
+		}]
+	)
 
 
 def readIpFromStore(filepath):
