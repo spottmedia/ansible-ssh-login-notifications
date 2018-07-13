@@ -40,6 +40,7 @@ ssh_login_notifications_slack_app_channel: [Slack channel, defaults to #general]
 
 Notifications previously activated with this role can be deactivated by setting the variable to *false*. 
 
+
 ## Dependencies
 
 #### (optional) a SLACK APP
@@ -51,10 +52,25 @@ Notifications previously activated with this role can be deactivated by setting 
 way we plan supporting and extending atm
 * so more to come!
 
+
+## Example output (when using slack app integration)
+
+##### When a user was succesfully mapped
+![IP found example ssh log](img/audit_ok_sample.png)
+
+_please note it carries over agent as well for possibly better forensic analysis)_
+
+
+##### When we couldn't map against the Slack's workspace log
+![IP unknown example ssh log](img/audit_alert_sample.png)
+
 ##### Installation
 
-Just create an app with those permission scopes added and attached to your workspace. 
-For more details @see: https://api.slack.com/slack-apps
+To install the role just look at it's [ansible galaxy page](https://galaxy.ansible.com/grzegorznowak/ansible_ssh_login_notifications)
+
+
+For the slack integration you need to create an app with 
+those permission scopes added and the app attached to your workspace: 
 
 ````
 admin 	(this one is quite heavy but unfortunatelly is the only way to come around fetching workspace user's IPs)
@@ -63,13 +79,15 @@ chat:write:user
 incoming-webhook 
 
 ````
+_(For more details on how apps work on slack see: https://api.slack.com/slack-apps)_
+
 
 ## Example Playbook
 
 ```
 - hosts: server
   roles:
-    - { role: grzegorznowak.ansible_role_ssh_login_notifications }
+    - { role: grzegorznowak.ansible_ssh_login_notifications }
 ```
 
 
