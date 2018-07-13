@@ -69,7 +69,7 @@ incoming-webhook
 ```
 - hosts: server
   roles:
-    - { role: grzegorznowak.ansible_role_ssh_login_notifications }
+    - { role: grzegorznowak.ansible_ssh_login_notifications }
 ```
 
 
