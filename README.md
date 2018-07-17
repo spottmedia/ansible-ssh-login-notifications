@@ -1,9 +1,9 @@
 # Ansible Role: SSH Login Notifications
 
 
-Installs scripts to send a notification (by mail and/or Slack) when an user logs in using SSH.
+Installs scripts to send notifications (by mail and/or Slack) when an user logs in using SSH.
 
-The scripts use *pam_exec.so* in the PAM *open session* event to detect the login.
+The scripts uses *pam_exec.so* in the PAM *open session* event to detect the login.
 
 ## Requirements
 
