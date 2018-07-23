@@ -60,11 +60,20 @@ def isUserFound(userData):
 	return userData['username'] is not None
 
 
+## courtesy of @see https://stackoverflow.com/a/166589
+def getPublicIp():
+	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+	s.connect(("8.8.8.8", 80))
+	my_ip = s.getsockname()[0]
+	s.close()
+	return my_ip
+
+
 def processFound(user):
 	sc.api_call(
 		"chat.postMessage",
 		channel=slack_channel,
-		text="A known person just logged in to one of our servers: *{}*".format(socket.gethostname()), #Found this ip on slack {}, and it beongs to user {}".format(user['ip'], user['username']),
+		text="A known person just logged in to one of our servers: *{}* (*{}*)".format(socket.gethostname(), getPublicIp()), #Found this ip on slack {}, and it beongs to user {}".format(user['ip'], user['username']),
 		as_user=False,
 		attachments=[{
 			'text': "Found this ip on slack *{}*, and it belongs to *{}*".format(user['ip'], user['username']),
@@ -83,7 +92,7 @@ def processUnknown(user):
 	sc.api_call(
 		"chat.postMessage",
 		channel=slack_channel,
-		text="Warning! An unknown person just logged in to one of our servers: *{}*".format(socket.gethostname()), #Found this ip on slack {}, and it beongs to user {}".format(user['ip'], user['username']),
+		text="Warning! An unknown person just logged in to one of our servers: *{}* *{}*".format(socket.gethostname(), getPublicIp()), #Found this ip on slack {}, and it beongs to user {}".format(user['ip'], user['username']),
 		as_user=False,
 		attachments=[{
 			'text': "NOT found this ip on slack *{}*".format(user['ip']),
@@ -98,7 +107,8 @@ def processUnknown(user):
 
 
 def readIpFromStore(filepath):
-	text_file = open(filepath, "r")
+	text_file = open(filepath, "a+")  	# make sure we try creating the file if not there yet
+	text_file.seek(0)  					# re-point to the beginning (since the `a` mode)
 	lines = text_file.readlines()
 	text_file.close()
 	return lines
