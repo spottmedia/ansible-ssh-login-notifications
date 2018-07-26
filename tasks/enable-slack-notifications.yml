@@ -1,4 +1,12 @@
 ---
+- fail:
+    msg: The 'ssh_login_notifications_slack_app_channel' variable must be a list of strings (or not defined at all)
+  when: ssh_login_notifications_slack_app_channel is defined and (ssh_login_notifications_slack_app_channel is not iterable or ssh_login_notifications_slack_app_channel is string)
+
+- fail:
+    msg: The 'ssh_login_notifications_auditapp_keys' variable must be a list of strings
+  when: ssh_login_notifications_auditapp_keys is defined and (ssh_login_notifications_auditapp_keys is not iterable or ssh_login_notifications_auditapp_keys is string)
+
 - name: Ensure that curl package is installed (Debian)
   apt:
     name: curl

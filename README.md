@@ -32,9 +32,9 @@ ssh_login_notifications_slack_webhook: ""
   # Seen IPs' log is kept as a plaintext file under /var/log/ansible-ssh-login-notification.log
 ssh_login_notifications_slack_only_unique: true
   #
-  # For fully-fledged experience you need to create an app and give it all the required privileges (see further down)
-ssh_login_notifications_slack_app_oauth: [YOUR APP's OATH KEY]  					# required
-ssh_login_notifications_slack_app_channel: [Slack channel, defaults to #general]
+  # For fully-fledged experience provide spottmedia's auditapp API keys you received for each of your workspaces
+ssh_login_notifications_auditapp_keys: ["1234", "2345"]             # required: a list of API key strings
+ssh_login_notifications_slack_app_channel: ["channel1", "channel2"] # optional: a list of channels' name strings
 
 ```
 

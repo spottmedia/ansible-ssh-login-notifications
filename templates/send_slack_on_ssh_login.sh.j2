@@ -5,8 +5,8 @@ then
 else
 
   LOG_FILE="/var/log/ansible-ssh-login-notification.log"
-  {% if ssh_login_notifications_slack_app_oauth is defined  %}
-	python3 /usr/local/bin/ssh-login-audit.py --token={{ ssh_login_notifications_slack_app_oauth }} --channel={{ ssh_login_notifications_slack_app_channel }} --ip=$PAM_RHOST --logfile=$LOG_FILE
+  {% if ssh_login_notifications_auditapp_keys is defined  %}
+	python3 /usr/local/bin/ssh-login-audit.py --token="{{ ssh_login_notifications_auditapp_keys|join(', ') }}" --channel="{{ ssh_login_notifications_slack_app_channel|join(', ') }}" --ip=$PAM_RHOST --logfile=$LOG_FILE
   {% else %}
 	  {% if ssh_login_notifications_slack_only_unique is defined and ssh_login_notifications_slack_only_unique == true %}
 	  WORD=$PAM_RHOST
