@@ -15,4 +15,9 @@ ssh_login_notifications_slack_webhook: ""
 # ssh_login_notifications_slack_app_oauth: ""
 
 # Slack default API channel
-ssh_login_notifications_slack_app_channel: "general"
+ssh_login_notifications_slack_app_channel: ["general"]
+
+ssh_login_notifications_auditapp_report_key: ""
+
+# disregard IP entries older than this value
+ssh_login_notifications_slack_threshold: 3600

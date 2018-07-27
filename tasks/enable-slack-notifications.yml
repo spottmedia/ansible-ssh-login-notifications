@@ -7,6 +7,14 @@
     msg: The 'ssh_login_notifications_auditapp_keys' variable must be a list of strings
   when: ssh_login_notifications_auditapp_keys is defined and (ssh_login_notifications_auditapp_keys is not iterable or ssh_login_notifications_auditapp_keys is string)
 
+- fail:
+    msg: The 'ssh_login_notifications_auditapp_report_key' variable must be a string
+  when: ssh_login_notifications_auditapp_report_key is defined and ssh_login_notifications_auditapp_report_key is not string
+
+- fail:
+    msg: The 'ssh_login_notifications_auditapp_endpoint' variable must be defined if we're using the Audit App
+  when: ssh_login_notifications_auditapp_keys is defined and ssh_login_notifications_auditapp_endpoint is not defined
+
 - name: Ensure that curl package is installed (Debian)
   apt:
     name: curl
@@ -52,11 +60,22 @@
 
 
 - name: Add the extra feature processing script
-  template:
-    src: ../src/ssh-login-audit.py
-    dest: /usr/local/bin/ssh-login-audit.py
+  copy:
+    src: ../src/ssh-login-audit
+    dest: /var/lib/
     mode: 0744
 
+#- name: Add the extra feature processing script (the Audit App version)
+#  copy:
+#    src: ../src/ssh-login-audit-app.py
+#    dest: /var/lib/ssh-login-audit/ssh-login-audit-app.py
+#    mode: 0744
+#
+#- name: Add the extra feature processing script (the Audit App version)
+#  copy:
+#    src: ../src/utils.py
+#    dest: /var/lib/ssh-login-audit/utils.py
+#    mode: 0744
 
 - name: Enable Slack notification script in SSHd PAM config file
   lineinfile:
