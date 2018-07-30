@@ -105,13 +105,22 @@ def processUnknown(user):
 		}]
 	)
 
+def isLineValid(line):
+	return len(line.split(" ")) == 2
 
 def readIpFromStore(filepath):
 	text_file = open(filepath, "a+")  	# make sure we try creating the file if not there yet
 	text_file.seek(0)  					# re-point to the beginning (since the `a` mode)
 	lines = text_file.readlines()
 	text_file.close()
-	return lines
+
+	# do sanity checks
+	validLines = list(filter(isLineValid, lines))
+	if len(validLines) != len(lines):
+		open(filepath, 'w').close()  # empties the file
+		return []
+	else:
+		return lines
 
 
 def isInLogs(ip, logs):
