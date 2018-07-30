@@ -120,7 +120,7 @@ def isInLogs(ip, logs):
 
 def saveToStore(ip, logs):
 	with open(logs, "a") as logfile:
-		logfile.write("{} {}".format(ip, time.time()))
+		logfile.write("{} {}\n".format(ip, time.time()))
 
 
 
