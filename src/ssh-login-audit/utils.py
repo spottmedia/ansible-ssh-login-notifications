@@ -25,6 +25,10 @@ def tooOld(line, ts_shreshold):
         return True
 
 
+def validLine(line):
+    return len(line.split(" ")) == 2
+
+
 """
 we need only those IPs whose timestamp is not too old
 """
@@ -34,8 +38,14 @@ def readIpFromStore(filepath, ts_threshold):
     lines = text_file.readlines()
     text_file.close()
 
-    return list(filter(lambda line: tooOld(line, ts_threshold), lines))
 
+    # do sanity checks against possibly bugged input in files stored in old an version
+    valid_lines = list(filter(validLine, lines))
+    if len(valid_lines) != len(lines):
+        open(filepath, 'w').close()  # empties the file
+        return []
+    else:
+        return list(filter(lambda line: tooOld(line, ts_threshold), lines))
 
 
 def saveToStore(ip, logs):
