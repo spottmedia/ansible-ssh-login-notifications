@@ -50,6 +50,13 @@
     mode: 0744
 
 
+- name: Add the extra feature processing script
+  template:
+    src: ../src/utils.py
+    dest: /usr/local/bin/utils.py
+    mode: 0744
+
+
 - name: Enable Slack notification script in SSHd PAM config file
   lineinfile:
     dest: /etc/pam.d/sshd
