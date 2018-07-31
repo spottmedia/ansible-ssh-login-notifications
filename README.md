@@ -36,7 +36,7 @@ ssh_login_notifications_slack_only_unique: true
 ssh_login_notifications_slack_app_oauth: [YOUR APP's OATH KEY]  					# required
 ssh_login_notifications_slack_app_channel: [Slack channel, defaults to #general]
 
-  # Put your history check as tight as needed to not take old IPs into consieration
+  # Put your history check as tight as needed to not take old IPs into consideration
 ssh_login_notifications_slack_threshold: [a timestamp, optional default to one day]
 
 ```
