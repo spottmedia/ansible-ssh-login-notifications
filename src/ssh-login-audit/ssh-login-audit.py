@@ -4,11 +4,11 @@
     Python Version: 3.5
 """
 
+import time
 import utils
 import socket
 import datetime
 import argparse
-
 
 from slackclient import SlackClient
 
@@ -35,13 +35,20 @@ sc = SlackClient(slack_token)
 LOGS_PER_CALL = 1000
 
 def lookupIp(anIp):
+	current_ts  = time.time()
+
 	pages_query = sc.api_call(
 		"team.accessLogs",
 		count="1"
 	)
 	pagesTotal = pages_query['paging']['total'] // LOGS_PER_CALL # we will be getting that many docs per call
-	def filterALog(aLog):
-		return aLog['ip'] == anIp
+
+	def filterALog(a_log):
+		return a_log['ip'] == anIp
+
+	def withinThreshold(a_log):
+		return current_ts < a_log['date_last'] + ts_threshold
+
 
 	head     = None
 	username = None
@@ -51,8 +58,12 @@ def lookupIp(anIp):
 			count=LOGS_PER_CALL,
 			page=page
 		)
+
+		within_threshold = list(filter(withinThreshold, logs_call['logins']))
 		head = next(iter(filter(filterALog,logs_call['logins'])), None)
-		if head is not None:
+
+		if head is not None or len(within_threshold) == 0:
+			# either entry found, or we are past our threshold already - so just break
 			break
 
 	if head is not None:

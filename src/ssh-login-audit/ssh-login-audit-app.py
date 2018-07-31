@@ -39,7 +39,8 @@ def callTheApp(ip):
 		'channel'       : slack_channel.split(','),
 		'reporting_key' : reporting_key,
 		'public_ip'     : utils.getPublicIp(),
-		'hostname'      : socket.gethostname()
+		'hostname'      : socket.gethostname(),
+		'ts_threshold'  : ts_threshold
 	}
 	print(data)
 
