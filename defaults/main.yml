@@ -16,3 +16,7 @@ ssh_login_notifications_slack_webhook: ""
 
 # Slack default API channel
 ssh_login_notifications_slack_app_channel: "general"
+
+# timestamp threshold for both local logs and slack API querying
+# to make sure we don't look up IPs that are potentially too old
+ssh_login_notifications_slack_threshold: 86400
