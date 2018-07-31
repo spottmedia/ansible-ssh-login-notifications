@@ -113,7 +113,7 @@ MIT / BSD
 ## Sponsored by
 
 #### [Kwiziq - The AI language education platform](https://www.kwiziq.com)
-#### [Spottmedia - Technology design, delivery and consulting](http://www.spottmedia.com)
+#### [Spottmedia - Technology design, delivery and consulting](https://www.spottmedia.com)
 
 
 ## Author Information
