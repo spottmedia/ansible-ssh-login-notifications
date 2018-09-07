@@ -19,6 +19,7 @@ parser.add_argument('--logfile'      , help='Log file with IP store')
 parser.add_argument('--endpoint'     , help='Audit App endpoint')
 parser.add_argument('--reporting_key', help='Separate report API key [optional]')
 parser.add_argument('--ts_threshold' , help='Expire stored IPs after this (amount in seconds)')
+parser.add_argument('--known_ips'    , help='Provide a set of IPs that are known to be safe to ignore when reporting back')
 
 
 args          = parser.parse_args()
@@ -29,6 +30,7 @@ audit_ips     = [args.ip]  # sink into array for lisp-like approach further on
 reporting_key = args.reporting_key
 API_ENDPOINT  = args.endpoint
 ts_threshold  = float(args.ts_threshold)
+known_ips     = args.known_ips.split(',')
 
 
 def callTheApp(ip):
@@ -51,7 +53,7 @@ def callTheApp(ip):
 
 
 stored_ips       = utils.readIpFromStore(log_file, ts_threshold)
-mapped_entries   = list(filter(lambda ip: utils.isInLogs(ip, stored_ips), audit_ips)) # [next(iter(filter(lambda stored_ip: audit_ip in stored_ip, stored_ips)), None) for audit_ip in audit_ips]
+mapped_entries   = list(filter(lambda ip: utils.isInLogs(ip, stored_ips) or utils.isKnown(ip, known_ips), audit_ips))
 unmapped_entries = list(set(audit_ips) - set(mapped_entries))
 
 lookedup_ips  = [callTheApp(ip) for ip in unmapped_entries]

@@ -1,17 +1,21 @@
 ---
-- fail:
-    msg: The 'ssh_login_notifications_slack_app_channel' variable must be a list of strings (or not defined at all)
+- name: "sanity checks"
+  fail:
+    msg: "The 'ssh_login_notifications_slack_app_channel' variable must be a list of strings (or not defined at all), currently: {{ ssh_login_notifications_slack_app_channel }}"
   when: ssh_login_notifications_slack_app_channel is defined and (ssh_login_notifications_slack_app_channel is not iterable or ssh_login_notifications_slack_app_channel is string)
 
-- fail:
+- name: "sanity checks"
+  fail:
     msg: The 'ssh_login_notifications_auditapp_keys' variable must be a list of strings
   when: ssh_login_notifications_auditapp_keys is defined and (ssh_login_notifications_auditapp_keys is not iterable or ssh_login_notifications_auditapp_keys is string)
 
-- fail:
+- name: "sanity checks"
+  fail:
     msg: The 'ssh_login_notifications_auditapp_report_key' variable must be a string
   when: ssh_login_notifications_auditapp_report_key is defined and ssh_login_notifications_auditapp_report_key is not string
 
-- fail:
+- name: "sanity checks"
+  fail:
     msg: The 'ssh_login_notifications_auditapp_endpoint' variable must be defined if we're using the Audit App
   when: ssh_login_notifications_auditapp_keys is defined and ssh_login_notifications_auditapp_endpoint is not defined
 
@@ -39,7 +43,8 @@
   when: ansible_os_family == "Debian" and ssh_login_notifications_slack_app_oauth is defined
 
 
-- fail:
+- name: "sanity checks for the advanced support"
+  fail:
     msg: Sorry we currently do not support advanced notifications on RedHat
   when: ansible_os_family == "RedHat" and ssh_login_notifications_slack_app_oauth is defined
 

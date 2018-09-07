@@ -20,6 +20,7 @@ parser.add_argument('--channel', help='Provide you Slack notification channel')
 parser.add_argument('--ip'     , help='IP address to verify')
 parser.add_argument('--logfile', help='Log file with IP store')
 parser.add_argument('--ts_threshold' , help='Expire stored IPs after this (amount in seconds)')
+parser.add_argument('--known_ips'    , help='Provide a set of IPs that are known to be safe to ignore when reporting back')
 
 
 args          = parser.parse_args()
@@ -115,7 +116,7 @@ def processUnknown(user):
 
 
 stored_ips       = utils.readIpFromStore(log_file, ts_threshold)
-mapped_entries   = list(filter(lambda ip: utils.isInLogs(ip, stored_ips), audit_ips)) # [next(iter(filter(lambda stored_ip: audit_ip in stored_ip, stored_ips)), None) for audit_ip in audit_ips]
+mapped_entries   = list(filter(lambda ip: utils.isInLogs(ip, stored_ips) or utils.isKnown(ip, known_ips), audit_ips))
 unmapped_entries = list(set(audit_ips) - set(mapped_entries))
 
 lookedup_ips  = [lookupIp(ip) for ip in unmapped_entries]

@@ -36,6 +36,9 @@ ssh_login_notifications_slack_only_unique: true
 ssh_login_notifications_auditapp_keys: ["1234", "2345"]             # required: a list of API key strings
 ssh_login_notifications_slack_app_channel: ["channel1", "channel2"] # optional: a list of channels' name strings
 
+  # consider a list of known IPs, such as monitors, CIs etc, as safe to not report back at all upon login
+ssh_login_notifications_slack_known_ips: ["127.0.0.1", "192.168.0.1"] # defaults to an empty list, populate with a list of string
+
 ```
 
 Notifications previously activated with this role can be deactivated by setting the variable to *false*. 

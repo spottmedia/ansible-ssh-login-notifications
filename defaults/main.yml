@@ -21,3 +21,6 @@ ssh_login_notifications_auditapp_report_key: ""
 
 # disregard IP entries older than this value
 ssh_login_notifications_slack_threshold: 3600
+
+# consider a list of known IPs, such as monitors, CIs etc, as safe to not report back
+ssh_login_notifications_slack_known_ips: []

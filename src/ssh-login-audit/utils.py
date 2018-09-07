@@ -56,3 +56,7 @@ def saveToStore(ip, logs):
 
 def isInLogs(ip, logs):
     return len(list(filter(lambda stored_ip: ip in stored_ip, logs))) > 0
+
+
+def isKnown(ip, known):
+    return len(list(filter(lambda known_ip: known_ip in ip, known))) > 0
