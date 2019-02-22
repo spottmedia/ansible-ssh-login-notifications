@@ -2,7 +2,7 @@
 dependencies: []
 
 galaxy_info:
-  author: "Fernando Membrive"
+  author: "Grzegorz Nowak with Spottmedia Ltd."
   description: Installs scripts to send a notification (by mail and/or Slack) when an user logs in using SSH.
   license: "license (BSD, MIT)"
   min_ansible_version: 1.8
