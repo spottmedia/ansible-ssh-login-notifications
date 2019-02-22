@@ -36,7 +36,7 @@ ssh_login_notifications_slack_only_unique: true
 ssh_login_notifications_slack_app_oauth: [YOUR APP's OATH KEY]  					# required
 ssh_login_notifications_slack_app_channel: [Slack channel, defaults to #general]
 
-  # Put your history check as tight as needed to not take old IPs into consieration
+  # Put your history check as tight as needed to not take old IPs into consideration
 ssh_login_notifications_slack_threshold: [a timestamp, optional default to one day]
 
 ```
@@ -112,8 +112,8 @@ MIT / BSD
 
 ## Sponsored by
 
-#### [Kwiziq.com](https://www.kwiziq.com) - The AI language education platform
-#### [Spottmedia.com](http://www.spottmedia.com) - Technology design, delivery and consulting
+#### [Kwiziq - The AI language education platform](https://www.kwiziq.com)
+#### [Spottmedia - Technology design, delivery and consulting](https://www.spottmedia.com)
 
 
 ## Author Information
