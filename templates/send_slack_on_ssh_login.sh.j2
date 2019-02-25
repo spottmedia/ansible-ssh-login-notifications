@@ -6,9 +6,9 @@ else
 
   LOG_FILE="/var/log/ansible-ssh-login-notification.log"
   {% if ssh_login_notifications_slack_app_oauth is defined  %}
-    python3 /var/lib/ssh-login-audit/ssh-login-audit.py --known_ips="{{ ssh_login_notifications_slack_known_ips|join(',') }}" --ts_threshold={{ ssh_login_notifications_slack_threshold }} --token={{ ssh_login_notifications_slack_app_oauth }} --channel="{{ ssh_login_notifications_slack_app_channel|join(',') }}" --ip=$PAM_RHOST --logfile=$LOG_FILE
+    python3 /var/lib/ssh-login-audit/ssh-login-audit.py --known_ips="{{ ssh_login_notifications_slack_known_ips|join(',') }}" --ts_threshold={{ ssh_login_notifications_slack_threshold }} --token={{ ssh_login_notifications_slack_app_oauth }} --channel_logging="{{ ssh_login_notifications_slack_app_channel_logging|join(',') }}" --channel_alert="{{ ssh_login_notifications_slack_app_channel_alert|join(',') }}" --ip=$PAM_RHOST --logfile=$LOG_FILE
   {% elif ssh_login_notifications_auditapp_keys is defined  %}
-	python3 /var/lib/ssh-login-audit/ssh-login-audit-app.py --known_ips="{{ ssh_login_notifications_slack_known_ips|join(',') }}" --ts_threshold={{ ssh_login_notifications_slack_threshold }} --reporting_key={{ ssh_login_notifications_auditapp_report_key }} --endpoint={{ ssh_login_notifications_auditapp_endpoint }} --keys="{{ ssh_login_notifications_auditapp_keys|join(',') }}" --channel="{{ ssh_login_notifications_slack_app_channel|join(',') }}" --ip=$PAM_RHOST --logfile=$LOG_FILE
+	python3 /var/lib/ssh-login-audit/ssh-login-audit-app.py --known_ips="{{ ssh_login_notifications_slack_known_ips|join(',') }}" --ts_threshold={{ ssh_login_notifications_slack_threshold }} --reporting_key={{ ssh_login_notifications_auditapp_report_key }} --endpoint={{ ssh_login_notifications_auditapp_endpoint }} --keys="{{ ssh_login_notifications_auditapp_keys|join(',') }}" --channel_logging="{{ ssh_login_notifications_slack_app_channel_logging|join(',') }}" --channel_alert="{{ ssh_login_notifications_slack_app_channel_alert|join(',') }}" --ip=$PAM_RHOST --logfile=$LOG_FILE
   {% else %}
 	  {% if ssh_login_notifications_slack_only_unique is defined and ssh_login_notifications_slack_only_unique == true %}
 	  WORD=$PAM_RHOST

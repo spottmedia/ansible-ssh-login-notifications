@@ -34,7 +34,12 @@ ssh_login_notifications_slack_only_unique: true
   #
   # For fully-fledged experience provide spottmedia's auditapp API keys you received for each of your workspaces
 ssh_login_notifications_auditapp_keys: ["1234", "2345"]             # required: a list of API key strings
-ssh_login_notifications_slack_app_channel: ["channel1", "channel2"] # optional: a list of channels' name strings
+
+# optional: a list of channels' names where UNKNOWN successfull logins will be reported
+ssh_login_notifications_slack_app_channel_alert: ["alert_channel1", "alert_channel2"]
+
+# optional: a list of channels' names where KNOWN successfull logins will be reported
+ssh_login_notifications_slack_app_channel_logging: ["logging_channel1", "logging_channel2"]  
 
   # consider a list of known IPs, such as monitors, CIs etc, as safe to not report back at all upon login
 ssh_login_notifications_slack_known_ips: ["127.0.0.1", "192.168.0.1"] # defaults to an empty list, populate with a list of string

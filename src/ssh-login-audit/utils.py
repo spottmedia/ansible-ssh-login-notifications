@@ -29,10 +29,10 @@ def validLine(line):
     return len(line.split(" ")) == 2
 
 
-"""
-we need only those IPs whose timestamp is not too old
-"""
 def readIpFromStore(filepath, ts_threshold):
+    """
+    we need only those IPs whose timestamp is not too old
+    """
     text_file = open(filepath, "a+")  	# make sure we try creating the file if not there yet
     text_file.seek(0)  					# re-point to the beginning (since the `a` mode)
     lines = text_file.readlines()
@@ -51,7 +51,6 @@ def readIpFromStore(filepath, ts_threshold):
 def saveToStore(ip, logs):
     with open(logs, "a") as logfile:
         logfile.write("{} {}\n".format(ip, time.time()))
-
 
 
 def isInLogs(ip, logs):

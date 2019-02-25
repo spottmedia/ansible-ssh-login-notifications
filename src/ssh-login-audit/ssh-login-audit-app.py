@@ -13,7 +13,8 @@ import argparse
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--keys'         , help='Provide the Audit App API keys')
-parser.add_argument('--channel'      , help='Provide you Slack notification channel')
+parser.add_argument('--channel_logging', help='Provide you Slack logging notification channel (for known logins)')
+parser.add_argument('--channel_alert', help='Provide you Slack alert notification channel (for unknown logins, can be same as for logging)')
 parser.add_argument('--ip'           , help='IP address to verify')
 parser.add_argument('--logfile'      , help='Log file with IP store')
 parser.add_argument('--endpoint'     , help='Audit App endpoint')
@@ -22,27 +23,29 @@ parser.add_argument('--ts_threshold' , help='Expire stored IPs after this (amoun
 parser.add_argument('--known_ips'    , help='Provide a set of IPs that are known to be safe to ignore when reporting back')
 
 
-args          = parser.parse_args()
-keys          = args.keys
-slack_channel = args.channel
-log_file      = args.logfile
-audit_ips     = [args.ip]  # sink into array for lisp-like approach further on
-reporting_key = args.reporting_key
-API_ENDPOINT  = args.endpoint
-ts_threshold  = float(args.ts_threshold)
-known_ips     = args.known_ips.split(',')
+args                  = parser.parse_args()
+keys                  = args.keys
+slack_channel_logging = args.channel_logging
+slack_channel_alert   = args.channel_alert
+log_file              = args.logfile
+audit_ips             = [args.ip]  # sink into array for lisp-like approach further on
+reporting_key         = args.reporting_key
+API_ENDPOINT          = args.endpoint
+ts_threshold          = float(args.ts_threshold)
+known_ips             = args.known_ips.split(',')
 
 
 def callTheApp(ip):
 	# data to be sent to api
 	data = {
-		'keys'          : keys.split(','),
-		'ip'            : ip,
-		'channel'       : slack_channel.split(','),
-		'reporting_key' : reporting_key,
-		'public_ip'     : utils.getPublicIp(),
-		'hostname'      : socket.gethostname(),
-		'ts_threshold'  : ts_threshold
+		'keys'           : keys.split(','),
+		'ip'             : ip,
+		'channel_logging': slack_channel_logging.split(','),
+		'channel_alert'  : slack_channel_alert.split(','),
+		'reporting_key'  : reporting_key,
+		'public_ip'      : utils.getPublicIp(),
+		'hostname'       : socket.gethostname(),
+		'ts_threshold'   : ts_threshold
 	}
 	print(data)
 

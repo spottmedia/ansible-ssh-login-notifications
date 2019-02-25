@@ -14,8 +14,12 @@ ssh_login_notifications_slack_webhook: ""
 # Slack app oauth token
 # ssh_login_notifications_slack_app_oauth: ""
 
-# Slack default API channel
-ssh_login_notifications_slack_app_channel: ["general"]
+# Slack API channels
+## When unknown user logs in
+ssh_login_notifications_slack_app_channel_alert: ["general"]
+
+## wWhen known user logs in
+ssh_login_notifications_slack_app_channel_logging: ["general"]
 
 ssh_login_notifications_auditapp_report_key: ""
 

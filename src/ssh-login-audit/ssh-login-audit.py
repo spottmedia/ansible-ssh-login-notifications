@@ -16,24 +16,27 @@ from slackclient import SlackClient
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--token'  , help='Provide your Slack APP token')
-parser.add_argument('--channel', help='Provide you Slack notification channel')
+parser.add_argument('--channel_logging', help='Provide you Slack logging notification channel (for known logins)')
+parser.add_argument('--channel_alert'  , help='Provide you Slack alert notification channel (for unknown logins, can be same as for logging)')
 parser.add_argument('--ip'     , help='IP address to verify')
 parser.add_argument('--logfile', help='Log file with IP store')
 parser.add_argument('--ts_threshold' , help='Expire stored IPs after this (amount in seconds)')
 parser.add_argument('--known_ips'    , help='Provide a set of IPs that are known to be safe to ignore when reporting back')
 
 
-args          = parser.parse_args()
-slack_token   = args.token
-slack_channel = args.channel
-log_file      = args.logfile
-audit_ips     = [args.ip]  # sink into array for lisp-like approach further on
-ts_threshold  = float(args.ts_threshold)
+args                  = parser.parse_args()
+slack_token           = args.token
+slack_channel_logging = args.channel_logging
+slack_channel_alert   = args.channel_alert
+log_file              = args.logfile
+audit_ips             = [args.ip]  # sink into array for lisp-like approach further on
+ts_threshold          = float(args.ts_threshold)
 
 
 sc = SlackClient(slack_token)
 
 LOGS_PER_CALL = 1000
+
 
 def lookupIp(anIp):
 	current_ts  = time.time()
@@ -49,7 +52,6 @@ def lookupIp(anIp):
 
 	def withinThreshold(a_log):
 		return current_ts < a_log['date_last'] + ts_threshold
-
 
 	head     = None
 	username = None
@@ -77,11 +79,10 @@ def isUserFound(userData):
 	return userData['username'] is not None
 
 
-
 def processFound(user):
 	sc.api_call(
 		"chat.postMessage",
-		channel=slack_channel,
+		channel=slack_channel_logging,
 		text="A known person just logged in to one of our servers: *{}* (*{}*)".format(socket.gethostname(), utils.getPublicIp()), #Found this ip on slack {}, and it beongs to user {}".format(user['ip'], user['username']),
 		as_user=False,
 		attachments=[{
@@ -100,7 +101,7 @@ def processFound(user):
 def processUnknown(user):
 	sc.api_call(
 		"chat.postMessage",
-		channel=slack_channel,
+		channel=slack_channel_alert,
 		text="Warning! An unknown person just logged in to one of our servers: *{}* *{}*".format(socket.gethostname(), utils.getPublicIp()), #Found this ip on slack {}, and it beongs to user {}".format(user['ip'], user['username']),
 		as_user=False,
 		attachments=[{
