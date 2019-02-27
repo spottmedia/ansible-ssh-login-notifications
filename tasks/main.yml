@@ -1,4 +1,7 @@
 ---
+- name: Install open SSH server in the first place for this role to make any sense
+  action: apt pkg='openssh-server' state=present install_recommends=no update-cache=yes
+
 - include: enable-mail-notifications.yml
   when: ssh_login_notifications_mail_enable == true
 

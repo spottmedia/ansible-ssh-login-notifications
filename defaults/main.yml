@@ -14,9 +14,17 @@ ssh_login_notifications_slack_webhook: ""
 # Slack app oauth token
 # ssh_login_notifications_slack_app_oauth: ""
 
-# Slack default API channel
-ssh_login_notifications_slack_app_channel: "general"
+# Slack API channels
+## When unknown user logs in
+ssh_login_notifications_slack_app_channel_alert: ["general"]
 
-# timestamp threshold for both local logs and slack API querying
-# to make sure we don't look up IPs that are potentially too old
-ssh_login_notifications_slack_threshold: 86400
+## wWhen known user logs in
+ssh_login_notifications_slack_app_channel_logging: ["general"]
+
+ssh_login_notifications_auditapp_report_key: ""
+
+# disregard IP entries older than this value
+ssh_login_notifications_slack_threshold: 3600
+
+# consider a list of known IPs, such as monitors, CIs etc, as safe to not report back
+ssh_login_notifications_slack_known_ips: []
