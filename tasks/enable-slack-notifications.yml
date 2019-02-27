@@ -70,24 +70,6 @@
     dest: /var/lib/
     mode: 0744
 
-#- name: Add the extra feature processing script (the Audit App version)
-#  copy:
-#    src: ../src/ssh-login-audit-app.py
-#    dest: /var/lib/ssh-login-audit/ssh-login-audit-app.py
-#    mode: 0744
-#
-#- name: Add the extra feature processing script (the Audit App version)
-#  copy:
-#    src: ../src/utils.py
-#    dest: /var/lib/ssh-login-audit/utils.py
-#    mode: 0744
-
-- name: Add the extra feature processing script
-  template:
-    src: ../src/utils.py
-    dest: /usr/local/bin/utils.py
-    mode: 0744
-
 
 - name: Enable Slack notification script in SSHd PAM config file
   lineinfile:
