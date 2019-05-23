@@ -136,5 +136,5 @@ python, ansible, slack & shell coding by [Grzegorz Nowak](https://www.linkedin.c
 
 the initial code was a fork from a work of:
 [Fernando Membrive](https://github.com/membrive/ansible-role-ssh-login-notifications).
-_Since the author didn't respond to our feature PR for a long time and our requirement was considerably more advanced than what we 
+_But since the author didn't respond to our feature PR for a long time and our requirement was considerably more advanced than what we 
 found there initially, we made a decision to host own version and go from there._
