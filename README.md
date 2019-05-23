@@ -2,6 +2,9 @@
 
 
 Installs scripts to send notifications (by mail and/or Slack) when an user logs in using SSH.
+Subequent logins from the same IP wont be notified on, until certain time passes. 
+Can send separate notifications if an IP was or wasn't found in the slack. 
+The use case is to have `#alert` and `#logging` channels setup independently for easier analysis.
 
 The scripts uses *pam_exec.so* in the PAM *open session* event to detect the login.
 
@@ -72,7 +75,7 @@ way we plan supporting and extending atm
 ##### When a user was succesfully mapped
 ![IP found example ssh log](img/audit_ok_sample.png)
 
-_please note it carries over agent as well for possibly better forensic analysis)_
+_(please note it carries over agent as well for possibly better forensic analysis)_
 
 
 ##### When we couldn't map against the Slack's workspace log
@@ -133,3 +136,5 @@ python, ansible, slack & shell coding by [Grzegorz Nowak](https://www.linkedin.c
 
 the initial code was a fork from a work of:
 [Fernando Membrive](https://github.com/membrive/ansible-role-ssh-login-notifications).
+_Since the author didn't respond to our feature PR for a long time and our requirement was considerably more advanced than what we 
+found there initially, we made a decision to host own version and go from there._
