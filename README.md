@@ -5,6 +5,9 @@ Installs scripts to send notifications (by mail and/or Slack) when an user logs 
 
 The scripts uses *pam_exec.so* in the PAM *open session* event to detect the login.
 
+It will rotate entries out of list of IPs based on datetime threshold, so we don't remember IPs forever.
+Has ability to provide a list of known IPs to not notify on them (in cases when automation accesses a server)
+
 ## Requirements
 
 This role has been tested in Ubuntu 14.04 and Ubuntu 16.04 but it should be valid for any distribution that uses the PAM Linux system.
@@ -32,7 +35,7 @@ ssh_login_notifications_slack_webhook: ""
   # Seen IPs' log is kept as a plaintext file under /var/log/ansible-ssh-login-notification.log
 ssh_login_notifications_slack_only_unique: true
   #
-  # For fully-fledged experience provide spottmedia's auditapp API keys you received for each of your workspaces
+  # For fully-fledged experience provide auditapp API keys you received for each of your workspaces
 ssh_login_notifications_auditapp_keys: ["1234", "2345"]             # required: a list of API key strings
 
 # optional: a list of channels' names where UNKNOWN successfull logins will be reported
@@ -104,9 +107,8 @@ _(For more details on how apps work on slack see: https://api.slack.com/slack-ap
 
 ## Roadmap (only the slack notification for now)
 
-* rotate entries out of list of ips based on (configurable) datetime, so we remember only the most recent ones ( WIP )
 * use more fine-grained control of already stored IP, specifically understand pub keys that were used to log in ( WIP )
-* ability to provide additional list of permanent known ips, in cases of own servers accessing a site often
+* ability to provide additional list of permanent known ips, in cases of own servers accessing a site often ( DONE )
 
 ### Stretch goals
 * when an IP is not mapped against any known store, create an interactive slack box so people can confirm it was them
