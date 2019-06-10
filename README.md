@@ -1,14 +1,14 @@
 # Ansible Role: SSH Login Notifications
 
 
-Installs scripts to send notifications (by mail and/or Slack) when an user logs in using SSH.
+Installs scripts to send notifications (by mail and/or Slack) when a user logs in using SSH.
 Subequent logins from the same IP wont be notified on, until certain time passes. 
 Can send separate notifications if an IP was or wasn't found in the slack. 
 The use case is to have `#alert` and `#logging` channels setup independently for easier analysis.
 
 (please note some of the features are only available if you setup the bespoke slack app)
 
-The scripts uses *pam_exec.so* in the PAM *open session* event to detect the login.
+The script uses *pam_exec.so* in the PAM *open session* event to detect the login.
 
 It will rotate entries out of list of IPs based on datetime threshold, so we don't remember IPs forever.
 Has ability to provide a list of known IPs to not notify on them (in cases when automation accesses a server)
