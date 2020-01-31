@@ -22,20 +22,19 @@
 - name: Ensure that curl package is installed (Debian)
   apt:
     name: curl
-    state: installed
+    state: present
     update_cache: yes
     cache_valid_time: 600
   when: ansible_os_family == "Debian"
 
 - name: Ensure that python packages are installed for advanced (Debian)
   apt:
-    name: "{{ item }}"
-    state: installed
-    update_cache: yes
-    cache_valid_time: 600
-  with_items:
+    name:
       - python3
       - python3-pip
+    state: present
+    update_cache: yes
+    cache_valid_time: 600
   when: ansible_os_family == "Debian" and ssh_login_notifications_slack_app_oauth is defined
 
 - name: Install required Slack Client for python3
@@ -52,7 +51,7 @@
 - name: Ensure that curl package is installed (RedHat)
   yum:
     name: curl
-    state: installed
+    state: present
     update_cache: yes
   when: ansible_os_family == "RedHat"
 
