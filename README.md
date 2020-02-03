@@ -6,7 +6,9 @@ Subequent logins from the same IP wont be notified on, until certain time passes
 Can send separate notifications if an IP was or wasn't found in the slack. 
 The use case is to have `#alert` and `#logging` channels setup independently for easier analysis.
 
-(please note some of the features are only available if you setup the bespoke slack app)
+please note some of the features are only available if you setup the bespoke slack app
+note too that the endpoint the Slack app uses (https://api.slack.com/methods/team.accessLogs) does
+__require premium account__ to return anything, so the slack app is a no go on freemium ones.
 
 The script uses *pam_exec.so* in the PAM *open session* event to detect the login.
 
