@@ -58,4 +58,4 @@ def isInLogs(ip, logs):
 
 
 def isKnown(ip, known):
-    return len(list(filter(lambda known_ip: known_ip in ip, known))) > 0
+    return len(list(filter(lambda known_ip: ip in known_ip, known))) > 0
