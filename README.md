@@ -90,8 +90,10 @@ _(please note it carries over agent as well for possibly better forensic analysi
 To install the role just look at it's [ansible galaxy page](https://galaxy.ansible.com/grzegorznowak/ansible_ssh_login_notifications)
 
 
-For the slack integration you need to __create an app that handles the ssh logins and is connected with your workspaces__.
-Those permission scopes have to be added to work properly: 
+#### For the slack integration you can connect and use our convenience live app at https://auditapp.spottmedia.com 
+
+or simply create an app that handles the ssh logins (ie. node server) and is connected with your workspaces.
+Permission scopes that have to be added for it to work properly: 
 
 ````
 admin 	(this one is quite heavy but unfortunatelly is the only way to come around fetching workspace user's IPs)
@@ -102,7 +104,6 @@ incoming-webhook
 ````
 _(For more details on how apps work on slack see: https://api.slack.com/slack-apps)_
 
-#### Or you can connect and use our convenience live app at https://auditapp.spottmedia.com 
 
 ## Example Playbook
 
