@@ -85,7 +85,7 @@ _(please note it carries over agent as well for possibly better forensic analysi
 ##### When we couldn't map against the Slack's workspace log
 ![IP unknown example ssh log](img/audit_alert_sample.png)
 
-##### Installation
+### Installation
 
 To install the role just look at it's [ansible galaxy page](https://galaxy.ansible.com/grzegorznowak/ansible_ssh_login_notifications)
 
