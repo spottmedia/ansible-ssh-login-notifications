@@ -102,7 +102,7 @@ incoming-webhook
 ````
 _(For more details on how apps work on slack see: https://api.slack.com/slack-apps)_
 
-Or you can connect and use our convenience live app at https://auditapp.spottmedia.com 
+#### Or you can connect and use our convenience live app at https://auditapp.spottmedia.com 
 
 ## Example Playbook
 
