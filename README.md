@@ -90,7 +90,7 @@ _(please note it carries over agent as well for possibly better forensic analysi
 To install the role just look at it's [ansible galaxy page](https://galaxy.ansible.com/grzegorznowak/ansible_ssh_login_notifications)
 
 
-For the slack integration you need to create an app that handles the ssh logins and is connected with your workspaces.
+For the slack integration you need to __create an app that handles the ssh logins and is connected with your workspaces__.
 Those permission scopes have to be added to work properly: 
 
 ````
@@ -116,11 +116,11 @@ _(For more details on how apps work on slack see: https://api.slack.com/slack-ap
 ## Roadmap (only the slack notification for now)
 
 * use more fine-grained control of already stored IP, specifically understand pub keys that were used to log in ( WIP )
-* ability to provide additional list of permanent known ips, in cases of own servers accessing a site often ( DONE )
+* ~~ability to provide additional list of permanent known ips, in cases of own servers accessing a site often~~ (DONE)
 
 ### Stretch goals
 * when an IP is not mapped against any known store, create an interactive slack box so people can confirm it was them
-* streamline the whole process by creating a multi-workspace app with oauth
+* ~~streamline the whole process by creating a multi-workspace app with oauth~~ (DONE)
 
 ##### More to come...
 
