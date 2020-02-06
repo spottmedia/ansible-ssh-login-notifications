@@ -2,7 +2,7 @@
 
 
 Installs scripts to send notifications (by mail and/or Slack) when a user logs in using SSH.
-Subequent logins from the same IP wont be notified on, until certain time passes. 
+Subsequent logins from the same IP wont be notified on, until certain time passes. 
 Can send separate notifications if an IP was or wasn't found in the slack. 
 The use case is to have `#alert` and `#logging` channels setup independently for easier analysis.
 
