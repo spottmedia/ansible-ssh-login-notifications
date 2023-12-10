@@ -2,14 +2,14 @@
 - name: Install open SSH server in the first place for this role to make any sense
   action: apt pkg='openssh-server' state=present install_recommends=no update-cache=yes
 
-- include: enable-mail-notifications.yml
+- include_tasks: enable-mail-notifications.yml
   when: ssh_login_notifications_mail_enable == true
 
-- include: enable-slack-notifications.yml
+- include_tasks: enable-slack-notifications.yml
   when: ssh_login_notifications_slack_enable == true
 
-- include: disable-mail-notifications.yml
+- include_tasks: disable-mail-notifications.yml
   when: ssh_login_notifications_mail_enable == false
 
-- include: disable-slack-notifications.yml
+- include_tasks: disable-slack-notifications.yml
   when: ssh_login_notifications_slack_enable == false
