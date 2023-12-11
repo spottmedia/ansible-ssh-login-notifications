@@ -17,7 +17,7 @@ else
 	  else
 	  {% endif %}
 		URL={{ ssh_login_notifications_slack_webhook }}
-		TEXT=$(echo -e "$PAM_SERVICE login on `hostname -s` for account *$PAM_USER* ($PAM_TTY)\n" | python -c "import json,sys;print(json.dumps(sys.stdin.read()))")
+		TEXT=$(echo -e "$PAM_SERVICE login on `hostname -s` for account *$PAM_USER* ($PAM_TTY)\n" | python3 -c "import json,sys;print(json.dumps(sys.stdin.read()))")
 		PAYLOAD="{
 		  \"attachments\": [
 			{
